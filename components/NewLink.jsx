@@ -42,7 +42,7 @@ const NewLink = () => {
   const handleGenerateLink = async () => {
     const linkResponse = await createLink();
     if (linkResponse) {
-      const newLink = `http://localhost:3000/${linkResponse._id}`;
+      const newLink = `hhttps://linkafy.vercel.app/${linkResponse._id}`;
       setGeneratedLink(newLink);
     } else {
       console.log('Link creation failed');
