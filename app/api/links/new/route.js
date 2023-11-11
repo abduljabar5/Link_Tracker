@@ -4,9 +4,7 @@ export const POST = async (req, res) => {
 
     const {userInput, userId} = await req.json();
     try {
-        console.log('link:', userInput, userId);
         await connectToDB();
-        console.log('test');
         const newLink = new Link({
             creator: userId,
             originalUrl: userInput,

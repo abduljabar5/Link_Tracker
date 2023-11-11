@@ -1,14 +1,12 @@
 
 'use client';
 import React, { useState } from 'react';
-import { signIn, signOut, useSession } from "next-auth/react";
-
+import { useSession } from "next-auth/react";
+import { toast } from 'sonner';
 const NewLink = () => {
   const [userInput, setUserInput] = useState('');
   const [generatedLink, setGeneratedLink] = useState('');
-  const [data, setData] = useState();
   const { data: session, status } = useSession();
-//   console.log("🚀 ~ file: NewLink.jsx:10 ~ NewLink ~ session:", session)
 
   const handleInputChange = (e) => {
     setUserInput(e.target.value);
@@ -28,9 +26,8 @@ const NewLink = () => {
   
       if (response.ok) {
         const responseData = await response.json();
-        console.log('Link creation successful:', responseData);
         
-        return responseData; // Return response data for further processing
+        return responseData; 
       } else {
         console.log('Response not OK:', response.status);
       }
@@ -42,13 +39,21 @@ const NewLink = () => {
   const handleGenerateLink = async () => {
     const linkResponse = await createLink();
     if (linkResponse) {
-      const newLink = `hhttps://linkafy.vercel.app/${linkResponse._id}`;
+      const newLink = `https://linkafy.vercel.app/${linkResponse._id}`;
       setGeneratedLink(newLink);
     } else {
       console.log('Link creation failed');
     }
   };
-  
+  const copyToClipboard = (text) => {
+    navigator.clipboard.writeText(text)
+      .then(() => {
+        toast('Link copied to clipboard!');
+      })
+      .catch(err => {
+        console.error('Failed to copy text: ', err);
+      });
+  }
   return (
     <div className="flex flex-col items-center justify-center p-5">
       <h2 className="text-lg font-bold mb-3">Enter Your Link</h2>
@@ -71,7 +76,7 @@ const NewLink = () => {
       {generatedLink && (
         <div className="mt-5 p-3 border border-gray-300 rounded w-full">
           <h3 className="text-md font-semibold">Generated Link:</h3>
-          <p className="break-all">{generatedLink}</p>
+          <p className="break-all cursor-pointer hover:text-black" onClick={() => copyToClipboard(generatedLink)}>{generatedLink}</p>
         </div>
       )}
     </div>

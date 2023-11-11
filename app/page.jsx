@@ -7,12 +7,12 @@ export default function Home() {
   const router = useRouter()
   const handleSignIn = (e) => {
     e.preventDefault();
-    signIn('google'); // Trigger sign-in with Google provider
+    signIn('google'); 
   };
 
   const handleSignOut = (e) => {
     e.preventDefault();
-    signOut(); // Trigger sign-out
+    signOut(); 
   };
 
   useEffect(() => {

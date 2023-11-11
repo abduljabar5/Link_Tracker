@@ -1,7 +1,7 @@
 import Provider from '@/components/Provider'
 import '../globals.css'
 import Nav from '@/components/Nav'
-
+import { Toaster } from 'sonner'
 
 export const metadata = {
   title: 'Link Tracker',
@@ -13,6 +13,7 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <body >
         <Provider>
+        <Toaster />
           <Nav />
           {children}
           </Provider>

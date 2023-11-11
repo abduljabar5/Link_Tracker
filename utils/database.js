@@ -7,7 +7,6 @@ export const connectToDB = async () => {
     mongoose.set('strictQuery', true);
 
     if (isConnected) {
-        console.log('mongodb is connected');
         return;
     }
     try {
@@ -18,8 +17,6 @@ export const connectToDB = async () => {
             useUnifiedTopology: true,
         })
         isConnected = true;
-
-        console.log("mongodb connected");
     } catch (error) {
 
         console.log(error, ';keys messed up');
