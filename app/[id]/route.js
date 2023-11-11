@@ -1,5 +1,5 @@
-import Link from "@/models/link";
-import { connectToDB } from "@/utils/database";
+import Link from "@models/link";
+import { connectToDB } from "@utils/database";
 import { NextResponse } from 'next/server';
 
 export const GET = async (request, { params }) => {
