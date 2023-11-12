@@ -35,8 +35,6 @@ const LinkList = (rerun) => {
     useEffect(() => {
         fetchLinks()
     }, [status === 'authenticated', rerun, open])
-
-
     return (
         <div>
             {loading ? <div>Loading...</div> :

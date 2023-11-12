@@ -1,7 +1,26 @@
-import React from 'react'
+'use client';
+import React, { useState, useEffect } from 'react';
+import { getGeolocation } from '@utils/geolocation';
 
-const LinkData = ({data}) => {
-  console.log("🚀 ~ file: LinkData.jsx:4 ~ LinkData ~ data:", data)
+const LinkData = ({ data }) => {
+  const [geoData, setGeoData] = useState(null);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    if (data.ipAddress) {
+      setLoading(true);
+      getGeolocation(data.ipAddress)
+        .then(response => {
+          setGeoData(response);
+          setLoading(false);
+        })
+        .catch(error => {
+          console.error("Error fetching geolocation:", error);
+          setLoading(false);
+        });
+    }
+  }, [data.ipAddress]);
+
   return (
     <div className="max-w-md mx-auto bg-white rounded-xl shadow-md overflow-hidden md:max-w-2xl my-10">
     <div className="p-8">
@@ -31,7 +50,16 @@ const LinkData = ({data}) => {
             <span className="text-gray-700">IP Address:</span>
             <span className="text-gray-600"> {data.ipAddress}</span>
         </div>
-
+        {loading ? (
+          <p>Loading geolocation data...</p>
+        ) : (
+          geoData && (
+            <div className="block mt-3">
+              <span className="text-gray-700">Location:</span>
+              <span className="text-gray-600"> {geoData.city}, {geoData.region} ({geoData.country})</span>
+            </div>
+          )
+        )}
         <div className="block mt-3">
             <span className="text-gray-700">Created At:</span>
             <span className="text-gray-600"> {new Date(data.createdAt).toLocaleString()}</span>
