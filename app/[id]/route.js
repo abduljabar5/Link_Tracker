@@ -12,11 +12,13 @@ export const GET = async (request, { params }) => {
             return new Response(null, { status: 404, statusText: "Link not found" });
         }
         const ipAddress = request.headers.get('x-forwarded-for').split(',')[0].trim();
+       
         
         await Link.updateOne({ _id: link._id }, {
             $inc: { clicks: 1 },
             timestamp: new Date(),
             ipAddress: ipAddress,
+            genteratedLink: request.url
         });
 
         return NextResponse.redirect(link.originalUrl);

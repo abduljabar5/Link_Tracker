@@ -9,8 +9,9 @@ import {
   DialogFooter,
 } from "@material-tailwind/react";
 import NewLink from "./NewLink";
+import LinkData from "./LinkData";
  
-export default function DialogDefault({handleOpen, open}) {
+export default function DialogDefault({handleOpen, open, data}) {
   return (
     <>
       {/* <Button onClick={handleOpen} variant="gradient">
@@ -18,7 +19,7 @@ export default function DialogDefault({handleOpen, open}) {
       </Button> */}
       <Dialog open={open} handler={handleOpen}>
         <DialogBody>
-         <NewLink />
+            {!data ? <NewLink /> : <LinkData data = {data} />}
         </DialogBody>
         <DialogFooter>
           <Button

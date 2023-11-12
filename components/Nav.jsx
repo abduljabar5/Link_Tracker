@@ -20,7 +20,7 @@ const Nav = () => {
 
   
   return (
-    <nav className="fixed bottom-10 left-0 right-0 bg-gray-800 text-white p-3 mx-80 rounded-lg">
+    <nav className="fixed bottom-10 left-0 right-0 bg-gray-800 text-white p-3 md:mx-60 lg:mx-80 sm:mx-10 rounded-lg">
       <div className="flex justify-evenly">
         <a href="/profile" className="block text-center p-2 rounded hover:bg-gray-700"><AiOutlineHome/></a>
         <button className="block text-center p-2 rounded hover:bg-gray-700"><IoIosContact /></button>

@@ -10,7 +10,6 @@ export const connectToDB = async () => {
         return;
     }
     try {
-        console.log('go');
         await mongoose.connect(process.env.MONGODB_URI, {
             dbName: "LinkTracker",
             useNewUrlParser: true,

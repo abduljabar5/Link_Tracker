@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { useSession } from "next-auth/react";
 import { toast } from 'sonner';
+import {copyToClipboard} from '@utils/copy';
 const NewLink = () => {
   const [userInput, setUserInput] = useState('');
   const [generatedLink, setGeneratedLink] = useState('');
@@ -45,15 +46,6 @@ const NewLink = () => {
       console.log('Link creation failed');
     }
   };
-  const copyToClipboard = (text) => {
-    navigator.clipboard.writeText(text)
-      .then(() => {
-        toast('Link copied to clipboard!');
-      })
-      .catch(err => {
-        console.error('Failed to copy text: ', err);
-      });
-  }
   return (
     <div className="flex flex-col items-center justify-center p-5">
       <h2 className="text-lg font-bold mb-3">Enter Your Link</h2>

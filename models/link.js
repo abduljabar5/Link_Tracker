@@ -7,6 +7,7 @@ const linkSchema = new Schema({
         ref:'User',
     },
     originalUrl: String,
+    genteratedLink: String,
     createdAt: { type: Date, default: Date.now },
     clicks: { type: Number, default: 0 },
     timestamp: Date,
