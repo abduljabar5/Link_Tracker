@@ -20,13 +20,16 @@ export const GET = async (request, { params }) => {
         await Link.updateOne({ _id: link._id }, {
             $inc: { clicks: 1 },
             genteratedLink: request.url,
-            location: {
+            $push:{
+                location: {
                 timestamp: new Date(),
                 ipAddress: ipAddress,
                 city: city,
                 region: region,
                 country: country,
             }
+            }
+            
         });
 
         return NextResponse.redirect(link.originalUrl);
