@@ -1,6 +1,7 @@
 import Link from "@models/link";
 import { connectToDB } from "@utils/database";
 import { NextResponse } from 'next/server';
+import { getGeolocation } from '@utils/geolocation';
 
 export const GET = async (request, { params }) => {
     try {
@@ -11,14 +12,21 @@ export const GET = async (request, { params }) => {
         if (!link) {
             return new Response(null, { status: 404, statusText: "Link not found" });
         }
+
         const ipAddress = request.headers.get('x-forwarded-for').split(',')[0].trim();
-       
-        
+        const geolocationData = await getGeolocation(ipAddress);
+        const { city, region, country } = geolocationData;
+
         await Link.updateOne({ _id: link._id }, {
             $inc: { clicks: 1 },
-            timestamp: new Date(),
-            ipAddress: ipAddress,
-            genteratedLink: request.url
+            genteratedLink: request.url,
+            location: {
+                timestamp: new Date(),
+                ipAddress: ipAddress,
+                city: city,
+                region: region,
+                country: country,
+            }
         });
 
         return NextResponse.redirect(link.originalUrl);
@@ -26,4 +34,4 @@ export const GET = async (request, { params }) => {
         console.error(error);
         return new Response(null, { status: 500, statusText: "Error getting link" });
     }
-}
+};

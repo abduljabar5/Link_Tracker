@@ -27,7 +27,7 @@ export default function Home() {
         <p className="text-lg text-gray-600 mb-8 px-4">
             Easily manage and track your links. Sign in to get started and gain insights into your link activity.
         </p>
-        <img src="https://im.ezgif.com/tmp/ezgif-1-0cbc69a5d7.gif" alt="Link Tracker Visualization" className=" mx-auto mb-8 rounded-lg shadow-lg"/>
+        <img src="https://media.licdn.com/dms/image/D562DAQF-XnK5ey8bew/profile-treasury-image-shrink_800_800/0/1699816379289?e=1700676000&v=beta&t=jwm6g_klzJgtXDN8_3x9TGM_i3mXRX1XXR_wMF26Ar4" alt="Link Tracker Visualization" className=" mx-auto mb-8 w-1/3 rounded-lg shadow-lg"/>
 
         {!session ? (
             <button 
