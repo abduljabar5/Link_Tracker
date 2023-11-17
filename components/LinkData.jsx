@@ -41,9 +41,12 @@ const LinkData = ({ data }) => {
           <span className="text-gray-700">IP Address:</span>
           <span className="text-gray-600"> {data.ipAddress}</span>
         </div>
+        <div className=" flex mx-auto gap-4 w-11/12 overflow-x-scroll" >
         {data.location.map((location, index) => (
+          <div className='flex flex-row'>
         <React.Fragment key={index}>
-          <p onClick={() => handleOpen(index)}>
+          
+          <p className=' cursor-pointer p-2 bg-blue-gray-500 my-1 w-20 text-white text-center rounded-md' onClick={() => handleOpen(index)}>
             Entry {index}
           </p>
           {openDialogIndex === index && (
@@ -62,8 +65,9 @@ const LinkData = ({ data }) => {
             </Dialog>
           )}
         </React.Fragment>
+        </div>
       ))}
-
+</div>
 
         <div className="block mt-3">
           <span className="text-gray-700">Created At:</span>

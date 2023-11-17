@@ -17,7 +17,7 @@ export default function DialogDefault({handleOpen, open, data}) {
       {/* <Button onClick={handleOpen} variant="gradient">
         Open Dialog
       </Button> */}
-      <Dialog open={open} handler={handleOpen}>
+      <Dialog size={ "lg"} open={open} handler={handleOpen}>
         <DialogBody>
             {!data ? <NewLink /> : <LinkData data = {data} />}
         </DialogBody>
