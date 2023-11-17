@@ -33,22 +33,24 @@ const LinkList = (rerun) => {
         }
     };
     useEffect(() => {
-        fetchLinks()
+     if(session?.user){fetchLinks()}
     }, [status === 'authenticated', rerun, open])
     return (
         <div>
             {loading ? <div>Loading...</div> :
                 <ul className="space-y-2">
                     {[...newData].reverse().map((link, index) => (
-                        <li key={index} className="flex justify-between items-center bg-white p-2 rounded-lg shadow">
-                         <p className='break-all cursor-pointer text-gray-700 hover:text-black' onClick={() => copyToClipboard(`https://linkafy.vercel.app/${link._id}`)}> https://linkafy.vercel.app/{link._id}</p>  
+                        <div key={index}><h4 >Name: {link.name}</h4>
+                        <li className="flex justify-between items-center bg-white p-2 rounded-lg shadow">
+
+                            <p className='break-all cursor-pointer text-gray-700 hover:text-black' onClick={() => copyToClipboard(`https://linkafy.vercel.app/${link._id}`)}> https://linkafy.vercel.app/{link._id}</p>
                             <button
                                 className="bg-blue-300 hover:bg-blue-500 text-white font-bold py-1 px-3 rounded inline-flex items-center"
                                 onClick={() => handleOpen(link._id)}>
                                 <span>View</span>
                             </button>
                             {activeModalId === link._id && <Modal handleOpen={() => handleOpen(null)} data={link} open={open} />}
-                        </li>
+                        </li></div>
                     ))}
                 </ul>
             }

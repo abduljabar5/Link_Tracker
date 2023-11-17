@@ -2,12 +2,13 @@ import { connectToDB } from '@/utils/database';
 import Link from '@/models/link';
 export const POST = async (req, res) => {
 
-    const {userInput, userId} = await req.json();
+    const {userInput, userId, nameInput} = await req.json();
     try {
         await connectToDB();
         const newLink = new Link({
             creator: userId,
             originalUrl: userInput,
+            name: nameInput,
 
         })
         await newLink.save();

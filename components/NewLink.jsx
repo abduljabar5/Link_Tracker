@@ -4,13 +4,19 @@ import React, { useState } from 'react';
 import { useSession } from "next-auth/react";
 import { toast } from 'sonner';
 import {copyToClipboard} from '@utils/copy';
+import { eslint } from '@next.config';
 const NewLink = () => {
   const [userInput, setUserInput] = useState('');
+  const [nameInput, setNameInput] = useState('');
+  const [activeInput, setActiveInput] = useState(true);
   const [generatedLink, setGeneratedLink] = useState('');
   const { data: session, status } = useSession();
 
   const handleInputChange = (e) => {
     setUserInput(e.target.value);
+  };
+  const handleNameChange = (e) => {
+    setNameInput(e.target.value);
   };
   const createLink = async () => {
     try {
@@ -21,10 +27,10 @@ const NewLink = () => {
         },
         body: JSON.stringify({
           userId: session?.user?.id,
-          userInput
+          userInput,
+          nameInput
         })
       });
-  
       if (response.ok) {
         const responseData = await response.json();
         
@@ -38,31 +44,43 @@ const NewLink = () => {
   }
   
   const handleGenerateLink = async () => {
-    const linkResponse = await createLink();
+    if (!activeInput){
+       const linkResponse = await createLink();
+    
     if (linkResponse) {
       const newLink = `https://linkafy.vercel.app/${linkResponse._id}`;
       setGeneratedLink(newLink);
     } else {
       console.log('Link creation failed');
     }
+  } else {
+    setActiveInput(false)
+  }
   };
   return (
     <div className="flex flex-col items-center justify-center p-5">
       <h2 className="text-lg font-bold mb-3">Enter Your Link</h2>
       <div className='flex gap-4'>
-        <input
+        {activeInput ?  <input
         type="text"
         value={userInput}
         onChange={handleInputChange}
         placeholder="Enter link here"
         className="px-10 py-2 border border-gray-300 rounded-md mb-3"
-      />
+      />  :  <input
+      type="text"
+      value={nameInput}
+      onChange={handleNameChange}
+      placeholder="Enter link name"
+      className="px-10 py-2 border border-gray-300 rounded-md mb-3"
+    />}
+      
       <button
         onClick={handleGenerateLink}
         className="bg-blue-500 text-white px-4 py-2 h-10 rounded hover:bg-blue-600 transition duration-300"
         disabled = {status !== 'authenticated'}
       >
-        Generate
+       {activeInput ? <p> Next</p> : <p>Generate</p>}
       </button>
       </div>
       {generatedLink && (
